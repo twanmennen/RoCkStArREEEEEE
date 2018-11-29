@@ -1,0 +1,58 @@
+﻿@model Rockstar.ViewModels.Review.SendReviewViewModel
+
+<h1 class="text-center">Send rockstar review invite</h1>
+<form method="post">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <div class="col-md-6">
+            <label>Gebruiker:</label>
+            <select class="form-control" asp-for="Review.UserId">
+                @foreach (var user in Model.Accounts)
+                {
+                <option value="@user.Id">@user.Name</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-6">
+            <label>Bedrijf:</label>
+            <select id="CompanySelect" class="form-control" onchange="companyChoose()" asp-for="Review.Company.Id">
+                <option value="0">Selecteer bedrijf</option>
+                @foreach (var company in Model.Companies)
+                {
+                    <option value="@company.Id">@company.Name</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-12">
+            <label>Toevoeging aan uitnodiging:</label>
+            <textarea asp-for="MailReason" id="Textarea" class="form-control area-verticalresize" placeholder="Automatisch gevuld, maar aanpasbaar naar wens..."></textarea>
+        </div>
+        <div class="col-md-6">
+            <label>Begin maand:</label>
+            <input asp-for="Review.StartDate" class="form-control" type="month"/>
+            <label>Eind maand:</label>
+            <input asp-for="Review.EndDate" class="form-control" type="month"/>
+        </div>
+        <div class="col-md-6">
+            <label>Functie:</label>
+            <input class="form-control" type="text" asp-for="Review.Function"/>
+        </div>
+    </div>
+
+    <div class="sendButton">
+        <button id="sendbutton" class="navbar-btn btn btn-default" type="submit">Send</button>
+    </div>
+    
+</form>
+
+<script>
+    function companyChoose() {
+        var int = $("#CompanySelect option:selected").val();
+        if (int > 0) {
+            var optionText = $("#CompanySelect option:selected").text();
+            $("#Textarea").val("Deze email is gestuurd als uitnodiging om een review te schrijven over " + optionText + " waar je hebt gewerkt.");
+        } else {
+            $("#Textarea").val("");
+        }
+    }
+</script>

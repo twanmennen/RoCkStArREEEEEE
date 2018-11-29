@@ -1,0 +1,87 @@
+﻿@using Rockstar.ViewModels.Review
+@model Rockstar.ViewModels.Review.SearchReviewViewModel
+
+
+
+<script type="text/javascript" language="javascript">
+
+    $(document).ready(function () {
+        SearchText1();
+    });
+    function SearchText1(){
+        $("#searchbox1").autocomplete({
+            select: function (event, ui) {
+
+                //window.location.href = 'Search.aspx?q=' + ui.item.value;;
+            },
+            source: function (request, response) {
+                $.ajax({
+                    url: "/ShowReview/AutoComplete",
+                    type: "POST",
+                    dataType: "json",
+                    data: { Prefix: request.term },
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return { label: item.name, value: item.name };
+                        }))
+
+                    }
+                })
+            },
+            messages: {
+                noResults: "", results: ""
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        SearchText2();
+    });
+    function SearchText2() {
+        $("#searchbox2").autocomplete({
+            select: function (event, ui) {
+
+                //window.location.href = 'Search.aspx?q=' + ui.item.value;;
+            },
+            source: function (request, response) {
+                $.ajax({
+                    url: "/ShowReview/AutoCompleteLocation",
+                    type: "POST",
+                    dataType: "json",
+                    data: { Prefix: request.term },
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return { label: item.name, value: item.name };
+                        }))
+
+                    }
+                })
+            },
+            messages: {
+                noResults: "", results: ""
+            }
+        });
+    }
+
+
+   
+
+
+</script>
+
+
+
+    
+    <div class="searchbalk">
+        <form method="post" asp-action="SearchResults" asp-controller="ShowReview">
+            <input class="form-control" type="text" placeholder="Search..." asp-for="SearchWord" id="searchbox1" />
+            <input class="form-control" type="text" placeholder="Search..." asp-for="SearchWord" id="searchbox2" />
+            <button class="btn btn-default" type="submit">Search</button>
+
+        </form>
+    </div>
+
+    @*<div class="buttonsubmit">
+        <button class="btn btn-default" type="submit">Search</button>
+
+    </div>*@

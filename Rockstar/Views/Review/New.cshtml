@@ -1,0 +1,129 @@
+﻿@model Rockstar.ViewModels.Review.NewReviewViewModel
+
+<h1>New Review</h1>
+<form method="post">
+
+    <div class="col-md-4">
+        <input hidden type="number" asp-for="Review.Id" value="@Model.Review.Id" />
+        <label>Company:</label>
+        <input class="form-control" readonly type="text" value="@Model.Review.Company.Name"/>
+        <label>Functie:</label>
+        <input asp-for="Review.Function" class="form-control" type="text" />
+        <label>Begindatum:</label>
+        <input asp-for="Review.StartDate" class="form-control" type="month" value="@Model.Review.StartDate.ToString("yyyy/MM")"/>
+        <label>Einddatum:</label>
+        <input asp-for="Review.EndDate" class="form-control" type="month" value="@Model.Review.EndDate.ToString("yyyy/MM")"/>
+        <label>Globaal rating:</label><br />
+        <div class="rating">
+            <label>
+                <input asp-for="Review.Overall" type="radio" value="1" />
+                <span class="icon">★</span>
+            </label>
+            <label>
+                <input asp-for="Review.Overall" type="radio" value="2" />
+                <span class="icon">★</span>
+                <span class="icon">★</span>
+            </label>
+            <label>
+                <input asp-for="Review.Overall" type="radio" value="3" />
+                <span class="icon">★</span>
+                <span class="icon">★</span>
+                <span class="icon">★</span>
+            </label>
+            <label>
+                <input asp-for="Review.Overall" type="radio" value="4" />
+                <span class="icon">★</span>
+                <span class="icon">★</span>
+                <span class="icon">★</span>
+                <span class="icon">★</span>
+            </label>
+            <label>
+                <input asp-for="Review.Overall" type="radio" value="5" />
+                <span class="icon">★</span>
+                <span class="icon">★</span>
+                <span class="icon">★</span>
+                <span class="icon">★</span>
+                <span class="icon">★</span>
+            </label>
+        </div>
+        <textarea asp-for="Review.Explanation" class="form-control area-verticalresize" placeholder="Explain rating"></textarea>
+    </div>
+    <div class="col-md-2"></div>
+    <div class="col-md-6">
+
+        @foreach (var category in Model.Categories)
+    {
+        <label>@category.Name</label> <br />
+        <input asp-for="@Model.Categories[category.Id - 1].Id" hidden value="@category.Id" />
+        <div class="rating">
+            <label>
+                <input asp-for="@Model.Categories[category.Id - 1].Rating" type="radio" value="1" />
+                <span class="icon">★</span>
+            </label>
+            <label>
+                <input asp-for="@Model.Categories[category.Id - 1].Rating" type="radio" value="2" />
+                <span class="icon">★</span>
+                <span class="icon">★</span>
+            </label>
+            <label>
+                <input asp-for="@Model.Categories[category.Id - 1].Rating" type="radio" value="3" />
+                <span class="icon">★</span>
+                <span class="icon">★</span>
+                <span class="icon">★</span>
+            </label>
+            <label>
+                <input asp-for="@Model.Categories[category.Id - 1].Rating" type="radio" value="4" />
+                <span class="icon">★</span>
+                <span class="icon">★</span>
+                <span class="icon">★</span>
+                <span class="icon">★</span>
+            </label>
+            <label>
+                <input asp-for="@Model.Categories[category.Id - 1].Rating" type="radio" value="5" />
+                <span class="icon">★</span>
+                <span class="icon">★</span>
+                <span class="icon">★</span>
+                <span class="icon">★</span>
+                <span class="icon">★</span>
+            </label>
+        </div>
+        <textarea asp-for="@Model.Categories[category.Id - 1].Explanation" class="form-control area-verticalresize" placeholder="Licht toe"></textarea>
+}
+
+        @*<label>Techniques:</label><br/>
+        <div class="rating">
+            <label>
+                <input type="radio" name="StarsTechniques" value="1"/>
+                <span class="icon">★</span>
+            </label>
+            <label>
+                <input type="radio" name="StarsTechniques" value="2"/>
+                <span class="icon">★</span>
+                <span class="icon">★</span>
+            </label>
+            <label>
+                <input type="radio" name="StarsTechniques" value="3"/>
+                <span class="icon">★</span>
+                <span class="icon">★</span>
+                <span class="icon">★</span>
+            </label>
+            <label>
+                <input type="radio" name="StarsTechniques" value="4"/>
+                <span class="icon">★</span>
+                <span class="icon">★</span>
+                <span class="icon">★</span>
+                <span class="icon">★</span>
+            </label>
+            <label>
+                <input type="radio" name="StarsTechniques" value="5"/>
+                <span class="icon">★</span>
+                <span class="icon">★</span>
+                <span class="icon">★</span>
+                <span class="icon">★</span>
+                <span class="icon">★</span>
+            </label>
+        </div>
+        <textarea class="form-control area-verticalresize" placeholder="Explain rating"></textarea>*@
+    </div>
+    <button class="btn btn-rockstar float-right" type="submit">Plaats review</button>
+</form>

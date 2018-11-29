@@ -1,0 +1,130 @@
+﻿@model Rockstar.ViewModels.Account.UserProfileViewModel
+
+<div class="container">
+    <div class="wrapper">
+        <div class="inner-wrapper">
+            <div class="profileImage">
+                <img src="@Model.Account.Image" alt="">
+            </div>
+
+            <h2 class="Name">@Model.Account.Name</h2>
+
+            <table>
+                <tr>
+                    <th>Naam</th>
+                    <td>@Model.Account.Name</td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td>@Model.Account.Email</td>
+                </tr>
+                <tr>
+                    <th>Telefoonnummer</th>
+                    <td>@Model.Account.Phone</td>
+                </tr>
+                <tr>
+                    <th>Geboortedatum</th>
+                    <td>@Model.Account.Birthdate</td>
+                </tr>
+            </table>
+            <div class="chips">
+                <button class="button4" onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Change</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="id01" class="modal">
+
+        <form class="modal-content animate" action="/action_page.php">
+            <div class="imgcontainer">
+                <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+                <img src="profileimage.jpg" alt="Avatar" class="avatar">
+            </div>
+            <div class="chips">
+                <button class="button4">Change picture</button>
+            </div>
+
+            <div class="containerz">
+                <label><b>Username</b></label>
+                <input type="text" placeholder="Enter Username" name="uname">
+
+                <label><b>Email</b></label>
+                <input type="text" placeholder="Enter Email" name="email">
+
+                <label><b>Phone</b></label>
+                    <input type="text" placeholder="Enter Phonenumber" name="phone">
+
+                    <label><b>Date of birth</b></label>
+                    <input type="text" placeholder="Enter Date of birth" name="birth">
+
+                    <button class="button5"type="submit">Change</button>
+            </div>
+
+            <div class="containerz" style="background-color:#f1f1f1">
+                <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Get the modal
+        var modal = document.getElementById('id01');
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+
+    <hr />
+
+    @*@if (@Model.Account.RoleId == 3)
+        {
+            foreach (var review in Model.Reviews)
+             {
+                 <div class="review">
+
+                     <div class="leftcol">
+                         <img src="https://cdn1.iconfinder.com/data/icons/social-messaging-productivity-1-1/128/gender-male2-512.png" id="profilepic" />
+                         <div class="lefttext">
+                             <div class="row">@review.Account.Name</div>
+                         </div>
+                     </div>
+
+                     <div class="rightcol">
+                         <div class="righttext">
+                             @if (review.Overall == 1)
+                             {
+                                 <span class="icon">Beoordeling: ★</span>
+                             }
+                             @if (review.Overall == 2)
+                             {
+                                 <span class="icon">Beoordeling: ★★</span>
+                             }
+                             @if (review.Overall == 3)
+                             {
+                                 <span class="icon">Beoordeling: ★★★</span>
+                             }
+                             @if (review.Overall == 4)
+                             {
+                                 <span class="icon">Beoordeling: ★★★★</span>
+                             }
+                             @if (review.Overall == 5)
+                             {
+                                 <span class="icon">Beoordeling: ★★★★★</span>
+                             }
+                             <div class="row">Functie: @review.Function</div>
+                             <div class="row">Begindatum: @review.StartDate</div>
+                             <div class="row">Einddatum: @review.EndDate</div>
+                             <div class="row">Uitleg: @review.Explanation</div>
+                         </div>
+                     </div>
+
+                 </div>
+             }
+        }*@
+
+</div>
+

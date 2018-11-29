@@ -1,0 +1,206 @@
+﻿@model Rockstar.ViewModels.Review.InvitesReviewViewModel
+
+<h2>Invites</h2>
+
+@foreach (var item in Model.Reviews)
+{
+    <form method="post" asp-action="New">
+        <div class="tablerow">
+            <div class="collapsible">
+                <div class="item">@item.Company.Name</div>
+                <div class="item">
+                    @for (int i = 0; i < item.Overall; i++)
+                    {
+                        <span class="icon">★</span>
+                    }
+                    <div class="items"> @item.Explanation</div>
+                </div>
+
+
+            </div>
+            <div class="content">
+                <div class="overall">
+                    <div class="items">Functie: @item.Function</div>
+                    <div class="itemz">Begin datum: @item.StartDate</div>
+                    <div class="itemz">Eind datum: @item.EndDate</div>
+                </div>
+
+                <div>
+                    <input type="number" hidden asp-for="NewReview.Id" value="@item.Id"/>
+                    <label>Globale rating:</label><br/>
+                    <div class="rating">
+                        <label>
+                            <input asp-for="NewReview.Overall" type="radio" value="1"/>
+                            <span class="icon">★</span>
+                        </label>
+                        <label>
+                            <input asp-for="NewReview.Overall" type="radio" value="2"/>
+                            <span class="icon">★</span>
+                            <span class="icon">★</span>
+                        </label>
+                        <label>
+                            <input asp-for="NewReview.Overall" type="radio" value="3"/>
+                            <span class="icon">★</span>
+                            <span class="icon">★</span>
+                            <span class="icon">★</span>
+                        </label>
+                        <label>
+                            <input asp-for="NewReview.Overall" type="radio" value="4"/>
+                            <span class="icon">★</span>
+                            <span class="icon">★</span>
+                            <span class="icon">★</span>
+                            <span class="icon">★</span>
+                        </label>
+                        <label>
+                            <input asp-for="NewReview.Overall" type="radio" value="5"/>
+                            <span class="icon">★</span>
+                            <span class="icon">★</span>
+                            <span class="icon">★</span>
+                            <span class="icon">★</span>
+                            <span class="icon">★</span>
+                        </label>
+                    </div>
+                    <textarea asp-for="NewReview.Explanation" class="form-control area-verticalresize" placeholder="Explain rating"></textarea>
+                </div>
+
+                @foreach (var category in Model.Categories)
+                {
+                    <br/>
+                    <div>
+
+                        <label>@category.Name</label>
+                        <br/>
+                        <input asp-for="@Model.Categories[category.Id - 1].Id" hidden value="@category.Id"/>
+                        <div class="rating">
+                            <label>
+                                <input asp-for="@Model.Categories[category.Id - 1].Rating" type="radio" value="1"/>
+                                <span class="icon">★</span>
+                            </label>
+                            <label>
+                                <input asp-for="@Model.Categories[category.Id - 1].Rating" type="radio" value="2"/>
+                                <span class="icon">★</span>
+                                <span class="icon">★</span>
+                            </label>
+                            <label>
+                                <input asp-for="@Model.Categories[category.Id - 1].Rating" type="radio" value="3"/>
+                                <span class="icon">★</span>
+                                <span class="icon">★</span>
+                                <span class="icon">★</span>
+                            </label>
+                            <label>
+                                <input asp-for="@Model.Categories[category.Id - 1].Rating" type="radio" value="4"/>
+                                <span class="icon">★</span>
+                                <span class="icon">★</span>
+                                <span class="icon">★</span>
+                                <span class="icon">★</span>
+                            </label>
+                            <label>
+                                <input asp-for="@Model.Categories[category.Id - 1].Rating" type="radio" value="5"/>
+                                <span class="icon">★</span>
+                                <span class="icon">★</span>
+                                <span class="icon">★</span>
+                                <span class="icon">★</span>
+                                <span class="icon">★</span>
+                            </label>
+                        </div>
+                        <textarea asp-for="@Model.Categories[category.Id - 1].Explanation" class="form-control area-verticalresize" placeholder="Licht toe"></textarea>
+
+                    </div>
+                    <br/>
+                }
+                <button class="btn btn-rockstar" type="submit">Opslaan</button>
+            </div>
+        </div>
+        
+    </form>
+}
+
+
+
+<style>
+    .collapsible {
+        background-color: #777;
+        color: white;
+        cursor: pointer;
+        padding: 18px;
+        width: 100%;
+        border: none;
+        text-align: left;
+        outline: none;
+        font-size: 15px;
+    }
+
+        .active, .collapsible:hover {
+            background-color: #555;
+        }
+
+    .content {
+        padding: 0 18px;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.2s ease-out;
+        background-color: #f1f1f1;
+        color: black;
+    }
+</style>
+
+
+
+
+<script>
+
+		@*function sortRating() {
+
+
+
+			var table, rows, switching, i, x, y, shouldSwitch;
+			table = document.getElementById("table");
+			alert(table.rows[1].getElementsByClassName("item")[1].innerHTML);
+			switching = true;
+			/*Make a loop that will continue until
+			no switching has been done:*/
+			while (switching) {
+				//start by saying: no switching is done:
+				switching = false;
+				rows = table.rows;
+				/*Loop through all table rows (except the
+				first, which contains table headers):*/
+				for (i = 1; i < (rows.length - 1); i++) {
+					//start by saying there should be no switching:
+					shouldSwitch = false;
+					/*Get the two elements you want to compare,
+					one from current row and one from the next:*/
+					x = rows[i].getElementsByTagName("LI");
+					y = rows[i + 1].getElementsByTagName("LI");
+					//check if the two rows should switch place:
+					if (Number(x.innerHTML) > Number(y.innerHTML)) {
+						//if so, mark as a switch and break the loop:
+						shouldSwitch = true;
+						break;
+					}
+				}
+				if (shouldSwitch) {
+					/*If a switch has been marked, make the switch
+					and mark that a switch has been done:*/
+					rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+					switching = true;
+				}
+			}
+		}*@
+
+
+		var coll = document.getElementsByClassName("collapsible");
+		var i;
+
+		for (i = 0; i < coll.length; i++) {
+			coll[i].addEventListener("click", function () {
+				this.classList.toggle("active");
+				var content = this.nextElementSibling;
+				if (content.style.maxHeight) {
+					content.style.maxHeight = null;
+				} else {
+					content.style.maxHeight = content.scrollHeight + "px";
+				}
+			});
+		}
+</script>
